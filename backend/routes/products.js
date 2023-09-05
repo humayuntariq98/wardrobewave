@@ -1,32 +1,20 @@
 const express = require ('express')
 const router = express.Router()
-
+const productCtrl = require('../controllers/products')
 
 // PEOPLE INDEX ROUTE
-router.get("/", (req, res) => {
-	res.status(200).json({message: "products index route"})
-});
+router.get("/", productCtrl.index);
 
 // PEOPLE CREATE ROUTE
-router.post("/", (req, res) =>  {
-	console.log(req.body)
-	res.status(200).json({message: "products create route"})
-});
+router.post("/", productCtrl.create);
 
 // PEOPLE SHOW ROUTE
-router.get("/:id", (req, res) => {
-	res.status(200).json({message: "product show route: " + req.params.id })
-});
+router.get("/:id", productCtrl.show);
 
 // PEOPLE DELETE ROUTE
-router.delete("/:id", (req, res) => {
-	res.status(200).json({message: "product delete route: " + req.params.id })
-});
+router.delete("/:id", productCtrl.delete);
 
 // PEOPLE UPDATE ROUTE
-router.put("/:id", (req, res) => {
-	console.log(req.body)
-	res.status(200).json({message: "product update route: " + req.params.id })
-});
+router.put("/:id", productCtrl.update);
 
 module.exports = router
