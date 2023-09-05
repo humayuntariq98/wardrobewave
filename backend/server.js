@@ -29,7 +29,7 @@ const app = express()
 app.use(express.urlencoded({extended: true}))
 // mount express JSON body parser
 app.use(express.json()) // look for a request 'Content-Type' - 'application/json' -> req.body ({...} or [{...}, {...}])
-app.use()
+
 // handling CROSS ORIGIN RESOURCE requests - prevents errors on our MERN stack 
 app.use(cors())
 // mount cors() -> cross origin request middleware
