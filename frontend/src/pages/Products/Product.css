@@ -1,0 +1,32 @@
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 1.5rem;
+  }
+  
+  .front-image {
+    width: auto;
+    height: 40vmin;
+    max-height: 18rem;
+  }
+
+  .back-image {
+    width: auto;
+    height: 40vmin;
+    max-height: 18rem;
+  }
+  
+  /* ./src/App.css */
+  .spinner {
+    width: 24px;
+    animation: loading infinite 3s linear;
+  }
+  
+  @keyframes loading {
+    from {
+      transform: rotateZ(0deg);
+    }
+    to {
+      transform: rotateZ(360deg);
+    }
+  }

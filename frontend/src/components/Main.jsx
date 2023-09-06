@@ -6,7 +6,7 @@ export default function Main(props){
     return (
         <main>
         <Routes>
-          <Route path="/products" element={<Products />} />
+          <Route path="/" element={<Products />} />
           <Route path="/products/:id" element={<Show />} />
         </Routes>
       </main>
