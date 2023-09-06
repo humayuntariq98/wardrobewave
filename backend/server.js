@@ -7,16 +7,17 @@ require('dotenv').config()
 //db connection import occurs after dotenv so module can access process.env object with populated key/value pairs
 require('./config/database')
 
-const express = require('express')
-const productsRouter = require('./routes/products')
+const { PORT } = process.env
 
+const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 
+const productsRouter = require('./routes/product')
+const categoriesRouter = require('./routes/category')
 ///////////////////////////////
 // APP CONFIG
 ////////////////////////////////
-const { PORT } = process.env
 
 const app = express()
 
@@ -39,8 +40,8 @@ app.use(morgan('dev'))
 ///////////////////////////////
 // ROUTER MIDDELWARE
 ////////////////////////////////
-app.use('/products', productsRouter)
-
+app.use('/product', productsRouter)
+app.use('/category', categoriesRouter)
 // hello world - test route
 
 app.get('/', (req,res)=>{
