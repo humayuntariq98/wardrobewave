@@ -14,25 +14,22 @@ export default function Show(){
             console.log(err)
         }
     }
-    const addToCart = (product) => {
-        let cart = localStorage.getItem('cart');
-        if(cart) {
-            cart = JSON.parse(cart);
+    function addToCart(product) {
+        // Retrieve the cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+      
+        // Check if the product is already in the cart
+        if(cart[product._id]) {
+          // Increment the quantity of the product in the cart
+          cart[product._id].quantity += 1;
         } else {
-            cart = [];
+          // Add the product to the cart with quantity 1
+          cart[product._id] = { ...product, quantity: 1 };
         }
-    
-        // Check if product is already in cart
-        const existingProduct = cart.find(item => item._id === product._id);
-        if(existingProduct) {
-            existingProduct.quantity += 1; // Increase quantity
-        } else {
-            product.quantity = 1; // Set initial quantity
-            cart.push(product);
-        }
-    
-        localStorage.setItem('cart', JSON.stringify(cart)); 
-    }
+      
+        // Save the updated cart back to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
     console.log(`Current Product: ${JSON.stringify(product)}`);
     useEffect(() => {
         handleRequest();
