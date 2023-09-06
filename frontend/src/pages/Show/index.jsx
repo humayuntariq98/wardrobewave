@@ -15,7 +15,23 @@ export default function Show(){
         }
     }
     const addToCart = (product) => {
-        
+        let cart = localStorage.getItem('cart');
+        if(cart) {
+            cart = JSON.parse(cart);
+        } else {
+            cart = [];
+        }
+    
+        // Check if product is already in cart
+        const existingProduct = cart.find(item => item._id === product._id);
+        if(existingProduct) {
+            existingProduct.quantity += 1; // Increase quantity
+        } else {
+            product.quantity = 1; // Set initial quantity
+            cart.push(product);
+        }
+    
+        localStorage.setItem('cart', JSON.stringify(cart)); 
     }
     console.log(`Current Product: ${JSON.stringify(product)}`);
     useEffect(() => {
