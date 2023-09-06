@@ -44,6 +44,7 @@ export default function Show(){
           <h2>{product.product_description}</h2>
           <img src={product.images[0]} alt={product.name + " image"} />
           <img src={product.images[1]} alt={product.name + " image"} />
+          <button onClick={() => addToCart(product)}>Add to Cart</button>
         </div>
       );
       
