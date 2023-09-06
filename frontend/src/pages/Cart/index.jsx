@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Cart () {
     const [cartItems, setCartItems] = useState([])
-
+    const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+    
     function updateQuantity(productId, amount) {
         let cart = JSON.parse(localStorage.getItem('cart')) || {};
       
@@ -50,9 +52,18 @@ export default function Cart () {
         setCartItems(cartData)
       }, [])
       
+      if (!isAuthenticated) {
+        return (
+            <div>
+                <p>You need to be logged in to view your cart.</p>
+                <button onClick={() => loginWithRedirect()}>Log In</button>
+            </div>
+        );
+    }
+
     return (
         <div>
-            <h1>All orders</h1>
+            <h1>All orders for {user.name}</h1>
             {cartItems.map((item)=> (
                 <div key={item._id}>
                 <img src={item.images[0]} alt={item.name}/>
@@ -67,6 +78,9 @@ export default function Cart () {
             <div>
         <strong>Total: ${calculateTotal().toFixed(2)}</strong>
         </div>
+        <button onClick={() => logout({ returnTo: window.location.origin })}>
+                Log Out
+            </button>
         </div>
         
     )

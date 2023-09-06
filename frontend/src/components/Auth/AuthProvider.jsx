@@ -1,4 +1,4 @@
-import { Auth0Provider } from "auth0/auth0-react";
+import { Auth0Provider } from "@auth0/auth0-react";
 import { useNavigate } from "react-router";
 
 export default function Auth0ProviderWithNavigate({ children }) {
@@ -21,11 +21,13 @@ const onRedirectCallback = (appState) => {
   };
   
   return (
-    <Auth0Provider>
-      domain={domain}
-      clientId={clientId}
-      authorizationParams={{ redirect_uri: redirectUri }}
-      onRedirectCallback={onRedirectCallback}
-    </Auth0Provider>
+<Auth0Provider
+  domain={domain}
+  clientId={clientId}
+  redirectUri={redirectUri}
+  onRedirectCallback={onRedirectCallback}
+>
+  {children}
+</Auth0Provider>
   );
   }
