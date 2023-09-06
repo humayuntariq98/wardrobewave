@@ -1,5 +1,5 @@
 import './Product.css'
-
+import {Link} from 'react-router-dom'
 import { getProducts } from '../../utilities/product-service';
 
 import {useState, useEffect} from "react"
@@ -37,6 +37,7 @@ export default function Products(props){
             <h3>{p.name}</h3>
             <img className="front-image" src={p.images[0]} alt="front-image" />
             <img className="back-image" src={p.images[1]} alt="back-image" />
+            <Link to={`/products/${p._id}`}>Details</Link>
             <p>{p.price}</p>
           </div>
         );

@@ -5,6 +5,7 @@ export default function Nav(){
         <Link to="/" >
 	        <h1>View All Products</h1>
         </Link>
+        <Link to='/cart'>Cart</Link>
         <div>WardrobeWave</div>
     </nav>)
 }

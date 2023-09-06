@@ -13,3 +13,12 @@ export async function getProducts() {
   }
 }
 
+export async function getProduct(id){
+  try {
+    const foundProduct = await productApi.detail(id)
+    return foundProduct
+  } catch (err) {
+    console.log(err)
+    throw new Error(err)
+  }
+}
