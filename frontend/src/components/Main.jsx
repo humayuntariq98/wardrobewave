@@ -8,7 +8,7 @@ export default function Main(props){
         <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/products/:id" element={<Show />} />
-            <Route path='/cart' element={<Cart />}/>
+          <Route path='/cart' element={<Cart />}/>
         </Routes>
       </main>
     )
