@@ -1,13 +1,13 @@
 import './Product.css'
 import {Link} from 'react-router-dom'
 import { getProducts } from '../../utilities/product-service';
-
+import { useAuth0 } from "@auth0/auth0-react";
 import {useState, useEffect} from "react"
 export default function Products(props){
     const BASE_URL = "http://localhost:4000/product";
     const [isLoading, setIsLoading] = useState(true);
     const [products, setProducts] = useState([]);
-
+    const { isAuthenticated, user } = useAuth0();
 		async function handleRequest(){
       try {
         const productsData = await getProducts();
@@ -60,6 +60,7 @@ export default function Products(props){
   
     return (
       <section className="product-list">
+        {isAuthenticated && <h2>Welcome back, {user.name}!</h2>}
         {isLoading ? loading() : loaded()}
       </section>
     );

@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react'
 import { useParams } from "react-router"
 import { getProduct } from "../../utilities/product-service"
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Show(){
     const [product, setProduct] = useState(null)
     const {id} = useParams();
-
+    const { isAuthenticated, user } = useAuth0();
     const handleRequest = async () => {
         try {
             const productData = await getProduct(id);
@@ -36,6 +37,7 @@ export default function Show(){
       }, [])
       const loaded = () => (
         <div className="product">
+            {isAuthenticated && <h2>Welcome back, {user.name}!</h2>}
           <h1>Show Page</h1>
           <h2>{product.name}</h2>
           <h2>{product.product_description}</h2>
