@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 
 export default function Products(props) {
-  const BASE_URL = "http://localhost:4000/product";
+  const BASE_URL = `${process.env.REACT_APP_BASE_URL}/product`;
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const { isAuthenticated, user } = useAuth0();
