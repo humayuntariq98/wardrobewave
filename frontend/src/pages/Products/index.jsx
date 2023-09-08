@@ -41,6 +41,7 @@ export default function Products(props) {
     const [showFront, setShowFront] = useState(true);
 
     return (
+      <div className="relative card-container">
       <Card className="w-96">
         <CardHeader shadow={false} floated={false} className="h-96 relative">
           <img
@@ -73,6 +74,7 @@ export default function Products(props) {
           </Link>
         </CardFooter>
       </Card>
+      </div>
     );
   };
 
@@ -96,8 +98,7 @@ export default function Products(props) {
   );
 
   return (
-    <section className="product-list">
-      {isAuthenticated && <h2>Welcome back, {user.name}!</h2>}
+    <section className="product-list ">
       {isLoading ? loading() : loaded()}
     </section>
   );

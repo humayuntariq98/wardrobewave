@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Products from "../pages/Products/";
 import Show from "../pages/Show/";
 import Cart from '../pages/Cart'
+import SimpleFooter from "./SimpleFooter";
 export default function Main(props){
     return (
         <main>
@@ -10,6 +11,7 @@ export default function Main(props){
           <Route path="/products/:id" element={<Show />} />
           <Route path='/cart' element={<Cart />}/>
         </Routes>
+        <SimpleFooter />
       </main>
     )
 }
