@@ -85,3 +85,18 @@ export default function Cart () {
         
     )
 }
+
+// export default function Cart () {
+//   const [cart, setCart] = useState({})
+
+//   async function getCartData (){
+//     const response = await fetch("http:localhost:4000/cart");
+//     const data = await response.json();
+//     setCart(data);
+//     console.log(cart, "seeing cart data")
+//   }
+
+//   useEffect(() => {getCartData()}, []);
+// }
+
+

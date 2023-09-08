@@ -4,12 +4,25 @@ const express = require('express');
 const { Cart } = require('../models');
 
 module.exports = {
+  getCart,
   createOrUpdate,
 };
 
+async function getCart(req, res, next) {
+  try {
+    console.log("hello")
+    // get all product
+    res.json(await Cart.find({}));
+  } catch (error) {
+    console.log("error happened",error)
+    //send error
+    res.status(400).json(error);
+  }
+}
+
 async function createOrUpdate(req, res, next) {
   try {
-    const cartId = req.params.id;
+    const cartId = Cart._id
     const cartData = req.body;
 
     if (cartId) {
