@@ -1,0 +1,6 @@
+.carousel-container {
+    max-width: 100%; /* Expand to the maximum width of its parent container */
+    width: 400px; /* Adjust the width as needed */
+    height: auto; /* Automatically adjust the height to maintain the aspect ratio */
+    margin: 0 auto; /* Center the carousel horizontally */
+  }
