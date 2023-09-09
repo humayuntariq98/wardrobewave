@@ -2,17 +2,18 @@
 
 const express = require('express');
 const { Cart } = require('../models');
-
+const { calculateTotalPriceOfCart} = require( '../utils/utils')
 module.exports = {
   getCart,
   createOrUpdate,
+  destroy
 };
 
 async function getCart(req, res, next) {
   try {
-    console.log("hello")
-    // get all product
-    res.json(await Cart.find({}));
+    const userId = req.query.user
+    const cart =await Cart.findOne({userId}) 
+    res.json(cart);
   } catch (error) {
     console.log("error happened",error)
     //send error
@@ -22,26 +23,43 @@ async function getCart(req, res, next) {
 
 async function createOrUpdate(req, res, next) {
   try {
-    const cartId = Cart._id
-    const cartData = req.body;
-
-    if (cartId) {
-      const updatedCart = await Cart.findByIdAndUpdate(
-        cartId,
-        cartData,
-        { new: true }
-      );
-
-      if (!updatedCart) {
-        return res.status(404).json({ message: 'Cart not found' });
+    const {userId, product} = req.body;
+    const currentCart = await Cart.findOne({userId})
+    if(currentCart){
+      const isProductAlreadyInCart = currentCart.products.findIndex(p=>p._id === product._id)
+      if(isProductAlreadyInCart!==-1){
+        currentCart.products[isProductAlreadyInCart].quantity++;
+      } else{
+        currentCart.products.push({...product, quantity:1})
       }
-      
-      return res.json(updatedCart);
-    } else {
-      const createdCart = await Cart.create(cartData);
-      return res.json(createdCart);
+      currentCart.totalAmount = calculateTotalPriceOfCart(currentCart);
+      await Cart.findByIdAndUpdate(currentCart._id, currentCart, {new: true})
+      res.json(currentCart)
     }
-  } catch (error) {
-    res.status(400).json(error);
+    else{
+
+      const cartData = {products:[{...product, quantity:1}], userId, totalAmount: product.price}
+      const newCart = Cart.create(cartData)
+      res.json(newCart)
+    }
+    
+}
+catch(error) {
+  console.log(error)
+}
+}
+
+
+async function destroy(req,res,next){
+  try{
+    const userId = req.params.userId;
+    console.log('user id to delete cart',req.params.id);
+    const cartres = await Cart.findOneAndDelete({userId:req.params.id});
+    console.log('cart deleted',cartres);
+    res.status(200).json()
+  }
+  catch(error){
+    console.log('error',error);
+    res.status(500).json(error)
   }
 }

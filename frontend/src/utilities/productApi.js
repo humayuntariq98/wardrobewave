@@ -6,6 +6,7 @@ export async function index() {
   // Fetch uses an options object as a second arg to make requests
   // other than basic GET requests, include data, headers, etc.
     const res = await fetch(BASE_URL, { method: "GET" });
+    console.log('BASE_URL: ',BASE_URL)
     // Check if request was successful
     if (res.ok) {
       // res.json() - the returned JSON serialzier data from our people API
