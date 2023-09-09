@@ -6,7 +6,7 @@ export default function Cart() {
   const [cart, setCart] = useState(null);
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
-  const checkout =async () => {
+  const checkout = async () => {
     await destroy(user?.sub);
     setCart({});
   };

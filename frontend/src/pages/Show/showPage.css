@@ -1,6 +1,60 @@
 .carousel-container {
-    max-width: 100%; /* Expand to the maximum width of its parent container */
-    width: 400px; /* Adjust the width as needed */
-    height: auto; /* Automatically adjust the height to maintain the aspect ratio */
-    margin: 0 auto; /* Center the carousel horizontally */
+/* Center the carousel horizontally */
+    flex: 1;
   }
+  .product{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    padding: 2em;
+    margin-top: 0;  /* Top margin, you can adjust the value */
+    margin-bottom: 0;
+    background: linear-gradient(to bottom, #cfd8dc, #b0bec5, #90a4ae, #78909c, #607d8b);
+  }
+
+  .product-info {
+    flex: 1; /* Takes 50% of the .product container width */
+    border: 2px solid #546e7a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 2em;  /* Spacing from the carousel */
+    border-left: 2px solid black;
+    border-radius: 10px;
+    gap: 1em;
+    height: 69%;
+}
+
+.break-line {
+  flex-shrink: 0; /* Prevents the line from shrinking */
+  width: 100%;
+  height: 2px;
+  background-color: #546e7a; /* Blue-gray color for the line */
+  margin: 1em 0;
+}
+
+.price-text {
+  color: #f5f5f5; /* Blue-gray 100 */
+}
+
+.product-info h2 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.description-heading {
+  text-decoration: underline;
+  text-align: center;
+}
+
+.product-name {
+  text-align: center;
+}
+
+h2-description {
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
