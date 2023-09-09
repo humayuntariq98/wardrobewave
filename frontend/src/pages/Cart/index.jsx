@@ -45,6 +45,56 @@ export default function Cart() {
     return <p>Loading...</p>;
   }
 
+  const handleIncrement = async (productId) => {
+    console.log("checking productID->", productId)
+    console.log("checkingkr userID->", user.sub)
+    if (user?.sub) {
+      try {
+        const response = await fetch(`http://localhost:4000/cart/${productId}/updateQuantity`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.sub,
+            action: "increment",
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+  
+        getCart(); // Refresh the cart data after the update
+      } catch (error) {
+        console.error("Error incrementing quantity:", error);
+      }
+    }
+  };
+  
+  
+  const handleDecrement = async (productId) => {
+    console.log("checkingproductid", productId)
+    if (user?.sub) {
+      try {
+        await fetch(`http://localhost:4000/cart/${productId}/updateQuantity`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.sub,
+            action: "decrement", // Specify the action as "decrement"
+          }),
+        });
+        getCart(); // Refresh the cart data after the update
+      } catch (error) {
+        console.error("Error decrementing quantity:", error);
+      }
+    }
+  };
+  
+
   if (Object.keys(cart).length) {
     return (
       <div>
@@ -57,8 +107,8 @@ export default function Cart() {
             </h2>
             <p>{item.product_description}</p>
             <p>{item.price}</p>
-            {/* <button onClick={() => handleIncrement(item._id)}>+</button>
-                <button onClick={() => handleDecrement(item._id)}>-</button> */}
+            <button onClick={() => handleIncrement(item._id)}>+</button>
+          <button onClick={() => handleDecrement(item._id)}>-</button>
           </div>
         ))}
         <button onClick={checkout}>Checkout</button>

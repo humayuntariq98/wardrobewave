@@ -6,6 +6,7 @@ const { calculateTotalPriceOfCart} = require( '../utils/utils')
 module.exports = {
   getCart,
   createOrUpdate,
+  updateCartItemQuantity,
   destroy
 };
 
@@ -49,6 +50,46 @@ catch(error) {
 }
 }
 
+
+async function updateCartItemQuantity(req, res, next) {
+  try {
+    const {productId} = req.params.id
+    const { userId, action } = req.body;
+
+    console.log('Received userId:', userId);
+    console.log('Received productId:', productId);
+    console.log('Received action:', action);
+    
+    const currentCart = await Cart.findOne({ userId });
+
+    if (currentCart) {
+      const productIndex = currentCart.products.findIndex(p => p._id === productId);
+
+      if (productIndex !== -1) {
+        if (action === 'increment') {
+          currentCart.products[productIndex].quantity++;
+        } else if (action === 'decrement') {
+          currentCart.products[productIndex].quantity--;
+          if (currentCart.products[productIndex].quantity <= 0) {
+            // Remove the product if the quantity becomes zero or negative
+            currentCart.products.splice(productIndex, 1);
+          }
+        }
+
+        currentCart.totalAmount = calculateTotalPriceOfCart(currentCart);
+        await Cart.findByIdAndUpdate(currentCart._id, currentCart, { new: true });
+        res.json(currentCart);
+      } else {
+        res.status(404).json({ message: 'Product not found in the cart' });
+      }
+    } else {
+      res.status(404).json({ message: 'Cart not found' });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
 
 async function destroy(req,res,next){
   try{
