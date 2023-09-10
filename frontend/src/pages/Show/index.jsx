@@ -37,7 +37,7 @@ export default function Show({setSelectedProduct}){
       }, [])
       const loaded = () => (
         <div className="product">
-        <div className="carousel-container">
+        <div className="carousel-container w-[500px] h-[860px]">
             <Carousel transition={{ duration: 2 }} className="rounded-xl">
                 <img src={product.images[0]} alt={product.name + " image"} className="h-full w-full object-cover"/>
                 <img src={product.images[1]} alt={product.name + " image"} className="h-full w-full object-cover"/>
@@ -60,11 +60,11 @@ export default function Show({setSelectedProduct}){
             </Typography>
 
             <Typography>
-                <p>{product.product_description}</p>
+                <p className='description-header'>{product.product_description}</p>
             </Typography>
 
             <Button
-                className="bg-blue-gray-50 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 flex items-center justify-center"
+                className="bg-blue-gray-50 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 flex items-center justify-center button-container"
                 ripple="light"
                 onClick={() => addToCart(product, user)}
             >
