@@ -27,14 +27,17 @@ async function createOrUpdate(req, res, next) {
     const { userId, product } = req.body;
     const currentCart = await Cart.findOne({ userId });
     if (currentCart) {
+      //if there is a cart for the user, find the index of the product that has an id equal to product._id sent by req.body
       const isProductAlreadyInCart = currentCart.products.findIndex((p) =>
         p._id.equals(product._id)
       );
       if (isProductAlreadyInCart !== -1) {
+        //findIndex returns -1 if no product found, if that is not the case, update the quantity of the product at the found index
         currentCart.products[isProductAlreadyInCart].quantity++;
       } else {
         currentCart.products.push({ ...product, quantity: 1 });
       }
+      //use the total price calculation function to update the carts total amount
       currentCart.totalAmount = calculateTotalPriceOfCart(currentCart);
       await Cart.findByIdAndUpdate(currentCart._id, currentCart, { new: true });
       res.json(currentCart);
@@ -55,9 +58,6 @@ async function createOrUpdate(req, res, next) {
 async function updateCartItemQuantity(req, res, next) {
   try {
     const { userId, action, productId } = req.body;
-    console.log("%ccart.js line:58 userId", "color: #007acc;", userId);
-    console.log("%ccart.js line:59 action", "color: #007acc;", action);
-    console.log("%ccart.js line:60 productId", "color: #007acc;", productId);
 
     const currentCart = await Cart.findOne({ userId });
 
