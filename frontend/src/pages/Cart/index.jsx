@@ -23,14 +23,13 @@ export default function Cart() {
           `http://localhost:4000/cart?user=${user?.sub}`
         );
         cartResponse = await cartResponse.json();
-        console.log("cart response converted");
         if (cartResponse) {
-          console.log("cart checking", cartResponse);
           setCart(cartResponse);
         }
       } catch (error) {
         console.error("Error fetching cart:", error);
-        setCart({}); // Set an empty cart object if there's an error
+        // Set an empty cart object if there's an error
+        setCart({});
       }
     }
   }
@@ -47,10 +46,10 @@ export default function Cart() {
     );
   }
   if (cart === null) {
-    // Cart data is loading, you can display a loading indicator here
     return <p>Loading...</p>;
   }
-
+  
+  //function for incrementing cart items quantity
   const handleIncrement = async (productId) => {
     console.log("checking productID->", productId);
     console.log("checkingkr userID->", user.sub);
@@ -74,14 +73,14 @@ export default function Cart() {
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
-
-        getCart(); // Refresh the cart data after the update
+        getCart();
       } catch (error) {
         console.error("Error incrementing quantity:", error);
       }
     }
   };
 
+  //function for decrementing cart items quantity
   const handleDecrement = async (productId) => {
     if (user?.sub) {
       try {
@@ -92,17 +91,18 @@ export default function Cart() {
           },
           body: JSON.stringify({
             userId: user.sub,
-            action: "decrement", // Specify the action as "decrement"
+            action: "decrement", 
             productId,
           }),
         });
-        getCart(); // Refresh the cart data after the update
+        getCart(); 
       } catch (error) {
         console.error("Error decrementing quantity:", error);
       }
     }
   };
 
+  //check if the cart object has any keys, then map over the products in the object and display product information
   if (Object.keys(cart).length) {
     return (
       <div className="cart-container">
