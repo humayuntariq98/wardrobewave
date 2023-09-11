@@ -42,6 +42,7 @@ async function createOrUpdate(req, res, next) {
       await Cart.findByIdAndUpdate(currentCart._id, currentCart, { new: true });
       res.json(currentCart);
     } else {
+      //if the user does not alrady have a cart, create it.
       const cartData = {
         products: [{ ...product, quantity: 1 }],
         userId,
@@ -57,25 +58,29 @@ async function createOrUpdate(req, res, next) {
 
 async function updateCartItemQuantity(req, res, next) {
   try {
+    //destructure the userID, action and productID from the req.body
     const { userId, action, productId } = req.body;
-
+    //find the cart for the user using userID
     const currentCart = await Cart.findOne({ userId });
 
     if (currentCart) {
+      //find index of product to we want to update the quantity of.
       const productIndex = currentCart.products.findIndex((p) =>
         p._id.equals(productId)
       );
       if (productIndex !== -1) {
+        //if product exists and the action sent by the req.body is increment, increase quantity by 1
         if (action === "increment") {
           currentCart.products[productIndex].quantity++;
         } else if (action === "decrement") {
+          //if product exists and the action sent by the req.body is decrement, decrease quantity by 1
           currentCart.products[productIndex].quantity--;
           if (currentCart.products[productIndex].quantity <= 0) {
             // Remove the product if the quantity becomes zero or negative
             currentCart.products.splice(productIndex, 1);
           }
         }
-
+        //calculate total amount of cart
         currentCart.totalAmount = calculateTotalPriceOfCart(currentCart);
         await Cart.findByIdAndUpdate(currentCart._id, currentCart, {
           new: true,
