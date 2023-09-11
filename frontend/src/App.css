@@ -3,9 +3,6 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   line-height: 1.5rem;;
-  
-
-  /* source: https://moderncss.dev/generating-font-size-css-rules-and-creating-a-fluid-type-scale/ */
   min-height: 100vh;
 }
 
@@ -21,7 +18,6 @@ h4 {
   line-height: calc(.125rem + 2ex + .125rem);
 }
 
-/* adding a `modular scale` for headings based on a perfect fifth - source: https://www.modularscale.com/?16&px&1.5*/
 h1 {
   font-size: 3.375rem;
 }
@@ -53,18 +49,17 @@ section {
 }
 
 main {
-  padding: 0; /* Remove padding */
-  /* other styles if any */
+  padding: 0;
+
 }
 
 .product-list {
-  padding: 0; /* Remove padding */
-  /* other styles if any */
+  padding: 0;
 }
 
-.product-list .w-96 { /* Assuming .w-96 is the class for the product cards */
-  margin-top: 2rem;  /* Top margin, you can adjust the value */
-  margin-bottom: 2rem;  /* Bottom margin, you can adjust the value */
+.product-list .w-96 { 
+  margin-top: 2rem;  
+  margin-bottom: 2rem;
 }
 
 body, #app {

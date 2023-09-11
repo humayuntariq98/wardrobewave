@@ -9,11 +9,14 @@ import { createOrUpdate } from '../../utilities/cart-service';
 import { Alert } from "@material-tailwind/react";
 import "./showPage.css"
 import { UserCircleIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+
+
 export default function Show({setSelectedProduct}){
     const [product, setProduct] = useState(null)
     const [addedToCart, setAddedToCart] = useState(false);
     const {id} = useParams();
     const { isAuthenticated, user } = useAuth0();
+
     const handleRequest = async () => {
         try {
             const productData = await getProduct(id);
@@ -68,7 +71,7 @@ export default function Show({setSelectedProduct}){
                 ripple="light"
                 onClick={() => addToCart(product, user)}
             >
-                <ShoppingCartIcon className="h-5 w-5 mr-2"/>  {/* Adjust h-5 w-5 to your desired size */}
+                <ShoppingCartIcon className="h-5 w-5 mr-2"/> 
                 Add to Cart
             </Button>
 
@@ -80,7 +83,6 @@ export default function Show({setSelectedProduct}){
       
       const loading = () => {
         return <h1>Loading.........</h1>;
-        // alternatively you can use the spinner
       };
       
       return product ? loaded() : loading();

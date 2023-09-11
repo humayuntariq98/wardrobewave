@@ -18,7 +18,7 @@ export default function Nav() {
             </div>
             <div className="flex items-center">
                 <Link to="/cart">
-                    <ShoppingCartIcon className="h-6 w-6 text-white mr-6" /> {/* Cart Icon */}
+                    <ShoppingCartIcon className="h-6 w-6 text-white mr-6" />
                 </Link>
                 <LoginButton />
             </div>

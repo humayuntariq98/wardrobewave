@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-/* .main{
-  background: linear-gradient(to bottom, #90a4ae, #78909c, #546e7a, #37474f, #263238);
-} */
+
 .product-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem 1.5rem;  
     padding: 0;
-    margin-top: 0;  /* Top margin, you can adjust the value */
+    margin-top: 0; 
     margin-bottom: 0;
     background: linear-gradient(to bottom, #cfd8dc, #b0bec5, #90a4ae, #78909c, #607d8b);
     min-height: 100vh;
@@ -26,7 +24,6 @@
     max-height: 18rem;
   }
   
-  /* ./src/App.css */
   .spinner {
     width: 24px;
     animation: loading infinite 3s linear;
@@ -34,12 +31,12 @@
   
   .card-container {
     position: relative; 
-    margin-top: 30px; /* this margin ensures that the textarea doesn't overlap with other content above */
+    margin-top: 30px;
 }
 
 .card-textarea {
     position: absolute;
-    top: -30px; /* Adjust as needed */
+    top: -30px;
     left: 0;
     z-index: 10; 
     resize: none; 
@@ -55,8 +52,6 @@
       transform: rotateZ(360deg);
     }
   }
-
-  
 
   
   body, #app {
