@@ -30,10 +30,12 @@ export default function Cart() {
   async function getCart() {
     if (user?.sub) {
       try {
-        console.log('usr ',user);
-        let cartResponse = await fetch(`http://localhost:4000/cart?user=${user?.sub}`);
+        console.log("usr ", user);
+        let cartResponse = await fetch(
+          `http://localhost:4000/cart?user=${user?.sub}`
+        );
         cartResponse = await cartResponse.json();
-        console.log('cart response converted');
+        console.log("cart response converted");
         if (cartResponse) {
           console.log("cart checking", cartResponse);
           setCart(cartResponse);
@@ -60,6 +62,58 @@ export default function Cart() {
     // Cart data is loading, you can display a loading indicator here
     return <p>Loading...</p>;
   }
+
+  const handleIncrement = async (productId) => {
+    console.log("checking productID->", productId);
+    console.log("checkingkr userID->", user.sub);
+    if (user?.sub) {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/cart/updateQuantity`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: user.sub,
+              action: "increment",
+              productId,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        getCart(); // Refresh the cart data after the update
+      } catch (error) {
+        console.error("Error incrementing quantity:", error);
+      }
+    }
+  };
+
+  const handleDecrement = async (productId) => {
+    if (user?.sub) {
+      try {
+        await fetch(`http://localhost:4000/cart/updateQuantity`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.sub,
+            action: "decrement", // Specify the action as "decrement"
+            productId,
+          }),
+        });
+        getCart(); // Refresh the cart data after the update
+      } catch (error) {
+        console.error("Error decrementing quantity:", error);
+      }
+    }
+  };
 
   if (Object.keys(cart).length) {
     return (
