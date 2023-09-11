@@ -70,6 +70,7 @@ export default function Cart() {
     return <p>Loading...</p>;
   }
 
+  //function for incrementing product quantity
   const handleIncrement = async (productId) => {
     console.log("checking productID->", productId);
     console.log("checkingkr userID->", user.sub);
@@ -101,6 +102,7 @@ export default function Cart() {
     }
   };
 
+  //function for incrementing product quantity
   const handleDecrement = async (productId) => {
     if (user?.sub) {
       try {
@@ -122,6 +124,7 @@ export default function Cart() {
     }
   };
 
+  //if the cart object has any keys, then map over the products array and display the product information
   if (Object.keys(cart).length) {
     return (
       
