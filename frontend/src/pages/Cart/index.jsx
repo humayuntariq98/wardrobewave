@@ -94,7 +94,7 @@ export default function Cart() {
           throw new Error(`Request failed with status ${response.status}`);
         }
 
-        getCart(); // Refresh the cart data after the update
+        getCart();
       } catch (error) {
         console.error("Error incrementing quantity:", error);
       }
@@ -111,11 +111,11 @@ export default function Cart() {
           },
           body: JSON.stringify({
             userId: user.sub,
-            action: "decrement", // Specify the action as "decrement"
+            action: "decrement",
             productId,
           }),
         });
-        getCart(); // Refresh the cart data after the update
+        getCart();
       } catch (error) {
         console.error("Error decrementing quantity:", error);
       }
