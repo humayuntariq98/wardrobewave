@@ -13,19 +13,7 @@ export default function Cart() {
     setCart({});
   };
 
-  const handleIncrement = async (itemId) => {
-    // Logic to increase the quantity of the item with the given itemId
-    // Make sure to re-fetch the cart after this operation to reflect the changes.
-  }
-  
-  const handleDecrementOrRemove = async (itemId) => {
-    if (itemId.quantity > 1) {
-      // Logic to decrease the quantity of the item with the given itemId
-    } else {
-      // Logic to remove the item from the cart
-    }
-    // Make sure to re-fetch the cart after this operation to reflect the changes.
-  }
+
 
   async function getCart() {
     if (user?.sub) {
@@ -131,7 +119,7 @@ export default function Cart() {
           
           <div className="item-actions">
           <div className="quantity-container bg-blue-gray-500">
-    <button className="icon-button " onClick={() => handleDecrementOrRemove(item._id)}>
+    <button className="icon-button " onClick={() => handleDecrement(item._id)}>
         {item.quantity > 1 ? 
             <MinusIcon className="h-6 w-6 text-blue-gray-50" /> :
             <TrashIcon className="h-6 w-6 text-blue-gray-50" />
@@ -141,11 +129,11 @@ export default function Cart() {
     <button className="icon-button" onClick={() => handleIncrement(item._id)}>
         <PlusIcon className="h-6 w-6 text-blue-gray-50" />
     </button>
-</div>
-            <strong>Total: ${cart.totalAmount}</strong>
+</div>                  
           </div>
         </div>
       ))}
+      <strong>Total: ${cart.totalAmount}</strong>
       <Button ripple={false}
               fullWidth={true}
               className="bg-yellow-100 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 w-1/4" onClick={checkout}>Buy Now</Button>
