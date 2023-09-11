@@ -4,16 +4,32 @@ import { destroy } from "../../utilities/cart-service";
 import './cart.css'
 import { PlusIcon, MinusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import {Button} from "@material-tailwind/react"
+import {useNavigate} from "react-router-dom"
 export default function Cart() {
   const [cart, setCart] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [hasCheckedOut, setHasCheckedOut] = useState(false);
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const history = useNavigate();
 
   const checkout = async () => {
     await destroy(user?.sub);
     setCart({});
+    setHasCheckedOut(true)
+    setShowModal(true);
+    setTimeout(() => {
+        setShowModal(false);
+        history('/'); 
+    }, 3000);
   };
 
-
+  const modal = showModal ? (
+    <div className="modal-container">
+        <div className="modal-content">
+            Order placed. Returning to home page
+        </div>
+    </div>
+) : null;
 
   async function getCart() {
     if (user?.sub) {
@@ -23,19 +39,24 @@ export default function Cart() {
           `http://localhost:4000/cart?user=${user?.sub}`
         );
         cartResponse = await cartResponse.json();
+        console.log("cart response converted");
         if (cartResponse) {
+          console.log("cart checking", cartResponse);
           setCart(cartResponse);
         }
       } catch (error) {
         console.error("Error fetching cart:", error);
-        // Set an empty cart object if there's an error
-        setCart({});
+        setCart({}); 
       }
     }
   }
   useEffect(() => {
     getCart();
   }, [user]);
+
+  if (hasCheckedOut) {
+    return modal;  
+}
 
   if (!isAuthenticated) {
     return (
@@ -48,8 +69,7 @@ export default function Cart() {
   if (cart === null) {
     return <p>Loading...</p>;
   }
-  
-  //function for incrementing cart items quantity
+
   const handleIncrement = async (productId) => {
     console.log("checking productID->", productId);
     console.log("checkingkr userID->", user.sub);
@@ -73,14 +93,14 @@ export default function Cart() {
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
-        getCart();
+
+        getCart(); // Refresh the cart data after the update
       } catch (error) {
         console.error("Error incrementing quantity:", error);
       }
     }
   };
 
-  //function for decrementing cart items quantity
   const handleDecrement = async (productId) => {
     if (user?.sub) {
       try {
@@ -91,20 +111,20 @@ export default function Cart() {
           },
           body: JSON.stringify({
             userId: user.sub,
-            action: "decrement", 
+            action: "decrement", // Specify the action as "decrement"
             productId,
           }),
         });
-        getCart(); 
+        getCart(); // Refresh the cart data after the update
       } catch (error) {
         console.error("Error decrementing quantity:", error);
       }
     }
   };
 
-  //check if the cart object has any keys, then map over the products in the object and display product information
   if (Object.keys(cart).length) {
     return (
+      
       <div className="cart-container">
       <h1>Your Cart</h1>
       {cart?.products?.map((item) => (
