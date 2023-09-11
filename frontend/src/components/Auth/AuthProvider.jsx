@@ -14,11 +14,10 @@ export default function Auth0ProviderWithNavigate({ children }) {
       }
       // depending on the architecture of your application, this can be used to prevent the application from loading, though a redirect call could navigate a user to an error page.
 
-const onRedirectCallback = (appState) => {
-    navigate(appState?.returnTo || window.location.pathname);
-  
-    // this function will be used by Auth0 Provider to check the component appState prop and determine a redirect location, or will return the current page
-  };
+      const onRedirectCallback = (appState) => {
+        console.log('AppState:', appState);
+        navigate(appState?.returnTo || window.location.pathname);
+    };
   
   return (
 <Auth0Provider

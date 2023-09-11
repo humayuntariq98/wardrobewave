@@ -41,12 +41,13 @@ export default function Products(props) {
     const [showFront, setShowFront] = useState(true);
 
     return (
+      <div className="relative card-container">
       <Card className="w-96">
         <CardHeader shadow={false} floated={false} className="h-96 relative">
           <img
             onClick={() => setShowFront(!showFront)}
             src={showFront ? product.images[0] : product.images[1]}
-            alt="card-image"
+            alt="a card"
             className="h-full w-full object-cover cursor-pointer"
           />
           <span className="absolute bottom-4 left-4 bg-white text-gray-800 px-2 py-1 rounded-sm">Click to view</span>
@@ -73,6 +74,7 @@ export default function Products(props) {
           </Link>
         </CardFooter>
       </Card>
+      </div>
     );
   };
 
@@ -89,15 +91,14 @@ export default function Products(props) {
       <h1>
         Loading...
         <span>
-          <img className="spinner" src="https://freesvg.org/img/1544764567.png" />
+          <img className="spinner" src="https://freesvg.org/img/1544764567.png" alt="a spinning icon"/>
         </span>
       </h1>
     </div>
   );
 
   return (
-    <section className="product-list">
-      {isAuthenticated && <h2>Welcome back, {user.name}!</h2>}
+    <section className="product-list ">
       {isLoading ? loading() : loaded()}
     </section>
   );

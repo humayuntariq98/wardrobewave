@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { destroy } from "../../utilities/cart-service";
-
+import './cart.css'
+import { PlusIcon, MinusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import {Button} from "@material-tailwind/react"
 export default function Cart() {
   const [cart, setCart] = useState(null);
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
@@ -10,6 +12,8 @@ export default function Cart() {
     await destroy(user?.sub);
     setCart({});
   };
+
+
 
   async function getCart() {
     if (user?.sub) {
@@ -101,28 +105,39 @@ export default function Cart() {
 
   if (Object.keys(cart).length) {
     return (
-      <div>
-        <h1>All orders for {user.name}</h1>
-        {cart?.products?.map((item) => (
-          <div key={item._id}>
-            <img src={item.images[0]} alt={item.name} />
-            <h2>
-              {item.name} - Quantity: {item.quantity}
-            </h2>
+      <div className="cart-container">
+      <h1>Your Cart</h1>
+      {cart?.products?.map((item) => (
+        <div key={item._id} className="item-card">
+          <img className="item-image" src={item.images[0]} alt={item.name} />
+          
+          <div className="item-details">
+            <h2>{item.name}</h2>
+            <p>${item.price} each</p>
             <p>{item.product_description}</p>
-            <p>{item.price}</p>
-            <button onClick={() => handleIncrement(item._id)}>+</button>
-            <button onClick={() => handleDecrement(item._id)}>-</button>
           </div>
-        ))}
-        <button onClick={checkout}>Checkout</button>
-        <div>
-          <strong>Total: {cart.totalAmount}</strong>
+          
+          <div className="item-actions">
+          <div className="quantity-container bg-blue-gray-500">
+    <button className="icon-button " onClick={() => handleDecrement(item._id)}>
+        {item.quantity > 1 ? 
+            <MinusIcon className="h-6 w-6 text-blue-gray-50" /> :
+            <TrashIcon className="h-6 w-6 text-blue-gray-50" />
+        }
+    </button>
+    <p className="mx-4 text-blue-gray-50">Quantity: {item.quantity}</p>
+    <button className="icon-button" onClick={() => handleIncrement(item._id)}>
+        <PlusIcon className="h-6 w-6 text-blue-gray-50" />
+    </button>
+</div>                  
+          </div>
         </div>
-        <button onClick={() => logout({ returnTo: window.location.origin })}>
-          Log Out
-        </button>
-      </div>
+      ))}
+      <strong>Total: ${cart.totalAmount}</strong>
+      <Button ripple={false}
+              fullWidth={true}
+              className="bg-yellow-100 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 w-1/4" onClick={checkout}>Buy Now</Button>
+    </div>
     );
   } else {
     return <p>No items in cart! Visit a product page to add items! </p>;

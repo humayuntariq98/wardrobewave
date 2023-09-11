@@ -51,3 +51,28 @@ main{
 section {
   margin: 2rem 0 4rem 0;
 }
+
+main {
+  padding: 0; /* Remove padding */
+  /* other styles if any */
+}
+
+.product-list {
+  padding: 0; /* Remove padding */
+  /* other styles if any */
+}
+
+.product-list .w-96 { /* Assuming .w-96 is the class for the product cards */
+  margin-top: 2rem;  /* Top margin, you can adjust the value */
+  margin-bottom: 2rem;  /* Bottom margin, you can adjust the value */
+}
+
+body, #app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}

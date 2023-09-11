@@ -5,6 +5,7 @@ import Cart from '../pages/Cart'
 import { useState } from "react";
 import { ProductContext } from "../data/ProductContext";
 
+import SimpleFooter from "./SimpleFooter";
 export default function Main(props){
   const [selectedProduct, setSelectedProduct] = useState({})
     return (
@@ -18,6 +19,7 @@ export default function Main(props){
           </ProductContext.Provider>
           }/>
         </Routes>
+        <SimpleFooter />
       </main>
     )
 }
