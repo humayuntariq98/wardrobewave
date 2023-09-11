@@ -5,7 +5,7 @@
     gap: 2em;
     height: 100vh;
     padding: 2em;
-    margin-top: 0;  /* Top margin, you can adjust the value */
+    margin-top: 0;
     margin-bottom: 0;
     background: linear-gradient(to bottom, #cfd8dc, #b0bec5, #90a4ae, #78909c, #607d8b);
   }
@@ -14,19 +14,19 @@
     display: flex;
     align-items: center;
     gap: 2em;
-    width: 80%; /* You can adjust this */
+    width: 80%; 
     margin: 1em 0;
     padding: 1em;
-    border: 1px solid #ddd; /* Optional border */
-    border-radius: 10px; /* Optional rounded corners */
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
   }
   
   .item-image {
-    flex-shrink: 0; /* Ensures the image doesn't shrink */
-    width: 100px; /* Adjust based on your preference */
+    flex-shrink: 0;
+    width: 100px; 
     height: 100px;
-    border-radius: 50%; /* To make the image rounded */
-    object-fit: cover; /* Ensures image content isn't distorted */
+    border-radius: 50%;
+    object-fit: cover;
   }
   
   .item-details {
@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     gap: 0.5em;
-    border: 1px solid #E0E7FF; /* blue-gray-50 */
+    border: 1px solid #E0E7FF;
     border-radius: 20px;
     padding: 0.5em 1em;
   }
@@ -58,7 +58,6 @@
     cursor: pointer;
     transition: transform 0.2s;
   
-    /* Optional: Scale the button a bit when hovered */
     &:hover {
       transform: scale(1.1);
     }
