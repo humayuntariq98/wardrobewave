@@ -10,11 +10,6 @@ module.exports = {
   update,
 };
 
-///////////////////////////////
-// CONTROLLERS
-////////////////////////////////
-
-// PRODUCT INDEX ACTION
 async function index(req, res, next) {
   try {
     // get all product
@@ -25,7 +20,6 @@ async function index(req, res, next) {
   }
 }
 
-// PRODUCT CREATE ACTION
 async function create(req, res, next) {
   try {
     // create new procuct
@@ -36,7 +30,6 @@ async function create(req, res, next) {
   }
 }
 
-// PRODUCT SHOW ACTION
 async function show(req, res, next) {
   try {
     // update one product
@@ -47,7 +40,6 @@ async function show(req, res, next) {
   }
 }
 
-// Product DESTROY ACTION
 async function destroy(req, res, next) {
   try {
     // delete people by ID
@@ -58,7 +50,6 @@ async function destroy(req, res, next) {
   }
 }
 
-// product UPDATE ACTION
 async function update(req, res, next) {
   try {
     // update product by ID, provide the form data, and return the updated document.

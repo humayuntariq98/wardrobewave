@@ -11,12 +11,6 @@ module.exports = {
 	update
 }
 
-
-///////////////////////////////
-// CONTROLLERS
-////////////////////////////////
-
-// PRODUCT INDEX ACTION
 async function index(req,res,next) {
 	try {
     // get all product
@@ -27,7 +21,7 @@ async function index(req,res,next) {
   }
 };
 
-// Category CREATE ACTION
+
 async function create(req,res,next) {
   try {
     // create new procuct
