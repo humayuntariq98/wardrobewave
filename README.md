@@ -21,7 +21,7 @@ With Wardrobe Wave, enjoy a user-friendly e-commerce experience, discover the la
 
 ## Getting Started
 
-[Deployed app](https://wardrobewaves.netlify.app/)
+[Deployed app](https://illustrious-dango-1a23f8.netlify.app/)
 
 [Trello board](https://trello.com/b/tRr82xws/project-3-planning)
 
